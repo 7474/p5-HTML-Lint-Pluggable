@@ -16,6 +16,11 @@ sub init {
                 my $param = shift;
                 return 0 if exists $char2entity{$param->{char}};
                 return 1;
+            },
+            'attr-use-entity' => sub {
+                my $param = shift;
+                return 0 if exists $char2entity{$param->{char}};
+                return 1;
             }
         }
     });

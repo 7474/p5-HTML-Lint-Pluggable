@@ -29,14 +29,14 @@ my $passing_html5 = q{
 my $has_entites_html = q{
 <html>
 <head><title>hoge</title></head>
-<body><h1>やまだ&</h1></body>
+<body><h1 title="山田&">やまだ&</h1></body>
 </html>
 };
 
 my $has_entites_html5 = q{
 <html>
 <head><title>hoge</title></head>
-<body><h1 data-fuga="hoge" xxx="yyy">やまだ&</h1><footer>exeeee</footer></body>
+<body><h1 data-fuga="hoge" xxx="yyy" title="山田&">やまだ&</h1><footer>exeeee</footer></body>
 </html>
 };
 
@@ -102,7 +102,7 @@ subtest 'tiny entities escape rule' => sub {
         $lint->load_plugins(qw/TinyEntitesEscapeRule/);
         $lint->parse($has_entites_html);
         $lint->eof;
-        is scalar($lint->errors), $base_errors - 3;
+        is scalar($lint->errors), $base_errors - 5;
     };
 
     subtest 'default back' => sub {
@@ -135,7 +135,7 @@ subtest 'html5 and tiny entities escape rule' => sub {
         $lint->load_plugins(qw/TinyEntitesEscapeRule HTML5/);
         $lint->parse($has_entites_html5);
         $lint->eof;
-        is scalar($lint->errors), $base_errors - 5;
+        is scalar($lint->errors), $base_errors - 7;
     };
 
     subtest 'default back' => sub {
